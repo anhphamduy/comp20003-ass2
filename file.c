@@ -47,20 +47,24 @@ void insert_record(Dictionary *dict, Record *record) {
 Dictionary *parse_file(FILE *stream) {
   char line[BUFFER_SIZE];
 
-  Dictionary *dictionary = (Dictionary *)malloc(sizeof(Dictionary));
+  Dictionary *dict = (Dictionary *)malloc(sizeof(Dictionary));
 
-  if (dictionary) {
+  // starting at -1 because we need to exclude the header from the count
+  dict->length = -1;
+
+  if (dict) {
     while (fgets(line, BUFFER_SIZE, stream)) {
       Record *record = parse_line(line);
       if (record == NULL) {
         continue;
       }
 
-      insert_record(dictionary, record);
+      insert_record(dict, record);
+      dict->length++;
     }
   }
 
-  return dictionary;
+  return dict;
 }
 
 /*

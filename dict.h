@@ -20,6 +20,7 @@ typedef struct Dictionary {
   Record *first_record;
   Record *last_record;
   Record *header;
+  int length;
 } Dictionary;
 
 void dispose_dict(Dictionary *);
